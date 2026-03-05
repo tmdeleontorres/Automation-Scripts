@@ -1,0 +1,36 @@
+appId: com.trackerteer.grg.dev
+---
+- launchApp:
+    clearState: true
+- assertVisible:
+    text: "Use current location"
+- tapOn: "Use current location"
+- assertVisible:
+    text: "Get Started"
+- tapOn: "Get Started"
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- assertVisible:
+    id: "text_view_promotion"
+- assertVisible:
+    id: "text_view_food_type"
+- assertVisible:
+    id: "text_view_offers"
+- assertVisible:
+    id: "text_view_restaurant"
+- assertVisible:
+    id: "image_account_menu"
+- tapOn:
+    id: "image_account_menu"
+- assertVisible:
+    id: "edittext_username"
+- tapOn: "Email"
+- inputText: "sample.trackerteer+2@gmail.com"
+
+- assertVisible:
+    id: "edittext_password"
+
+- tapOn: "Password"
+- inputText: "Test1234!"

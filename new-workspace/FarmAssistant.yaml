@@ -1,0 +1,26 @@
+appId: com.trackerteer.farmassistant
+---
+- launchApp:
+    clearState: true
+# Wait for splash screen to finish
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- tapOn:
+    text: "Server"
+- inputText: "upload-nyhiew"
+
+- tapOn:
+    text: "Username"
+- inputText: "louigie"
+
+- tapOn: back
+
+- tapOn:
+    text: "Password"
+- inputText: "12345678"
+
+- tapOn: back
+
+- tapOn:
+    text: "Login"

@@ -1,0 +1,117 @@
+appId: com.trackerteer.farmassistant
+appName: Farm Assistant
+---
+flow:
+  name: "Login Automation - Positive and Negative"
+  description: "Automates login with correct and incorrect credentials"
+
+  variables:
+    valid_username: "testuser"
+    valid_password: "pass123"
+    invalid_username: "wronguser"
+    invalid_password: "wrongpass"
+
+  steps:
+    # Step 1: Open App
+    - name: "Open App"
+      action: "open_app"
+      params:
+        app_id: "com.example.myapp"
+
+    # -----------------------
+    # Positive Login
+    # -----------------------
+    - name: "Enter Valid Username"
+      action: "type_text"
+      params:
+        selector: "username_field"
+        text: "{{valid_username}}"
+
+    - name: "Enter Valid Password"
+      action: "type_text"
+      params:
+        selector: "password_field"
+        text: "{{valid_password}}"
+
+    - name: "Tap Login Button"
+      action: "tap"
+      params:
+        selector: "login_button"
+
+    - name: "Check Successful Login"
+      action: "assert"
+      params:
+        selector: "welcome_message"
+        condition: "visible == true"
+      on_error:
+        action: "screenshot"
+        params:
+          filename: "positive_login_fail.png"
+
+    # Step 3: Logout to prepare for negative test
+    - name: "Tap Logout"
+      action: "tap"
+      params:
+        selector: "logout_button"
+      on_error:
+        action: "screenshot"
+        params:
+          filename: "logout_fail.png"
+
+    # -----------------------
+    # Negative Login - Invalid Username
+    # -----------------------
+    - name: "Enter Invalid Username"
+      action: "type_text"
+      params:
+        selector: "username_field"
+        text: "{{invalid_username}}"
+
+    - name: "Enter Valid Password"
+      action: "type_text"
+      params:
+        selector: "password_field"
+        text: "{{valid_password}}"
+
+    - name: "Tap Login Button"
+      action: "tap"
+      params:
+        selector: "login_button"
+
+    - name: "Check Error Message for Invalid Username"
+      action: "assert"
+      params:
+        selector: "error_message"
+        condition: "visible == true"
+
+    # -----------------------
+    # Negative Login - Invalid Password
+    # -----------------------
+    - name: "Enter Valid Username"
+      action: "type_text"
+      params:
+        selector: "username_field"
+        text: "{{valid_username}}"
+
+    - name: "Enter Invalid Password"
+      action: "type_text"
+      params:
+        selector: "password_field"
+        text: "{{invalid_password}}"
+
+    - name: "Tap Login Button"
+      action: "tap"
+      params:
+        selector: "login_button"
+
+    - name: "Check Error Message for Invalid Password"
+      action: "assert"
+      params:
+        selector: "error_message"
+        condition: "visible == true"
+
+    # -----------------------
+    # Step 6: Close App
+    # -----------------------
+    - name: "Close App"
+      action: "close_app"
